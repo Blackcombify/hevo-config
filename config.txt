@@ -73,7 +73,7 @@ extruder.hotend.acceleration                    500           # Acceleration for
 extruder.hotend.max_speed                       50            # Maximum speed in mm/s
 
 extruder.hotend.step_pin                        2.3           # Pin for extruder step signal
-extruder.hotend.dir_pin                         0.22          # Pin for extruder dir signal ( add '!' to reverse direction )
+extruder.hotend.dir_pin                         0.22!         # Pin for extruder dir signal ( add '!' to reverse direction )
 extruder.hotend.en_pin                          0.21          # Pin for extruder enable signal
 
 # Extruder offset
@@ -99,7 +99,7 @@ extruder.hotend2.acceleration                   500          # Acceleration for 
 extruder.hotend2.max_speed                      50           # mm/s
 
 extruder.hotend2.step_pin                       2.8          # Pin for extruder step signal
-extruder.hotend2.dir_pin                        2.13         # Pin for extruder dir signal ( add '!' to reverse direction )
+extruder.hotend2.dir_pin                        2.13!        # Pin for extruder dir signal ( add '!' to reverse direction )
 extruder.hotend2.en_pin                         4.29         # Pin for extruder e   nable signal
 
 extruder.hotend2.x_offset                       0            # x offset from origin in mm
@@ -128,9 +128,9 @@ laser_module_pwm_pin                          2.5             # This pin will be
 
 # First hotend configuration
 temperature_control.hotend.enable            true             # Whether to activate this ( "hotend" ) module at all.
-temperature_control.hotend.thermistor_pin    0.23             # Pin for the thermistor to read
+temperature_control.hotend.thermistor_pin    0.25             # Pin for the thermistor to read
 temperature_control.hotend.heater_pin        2.7              # Pin that controls the heater, set to nc if a readonly thermistor is being defined
-temperature_control.hotend.thermistor        EPCOS100K        # See http://smoothieware.org/temperaturecontrol#toc5
+temperature_control.hotend.thermistor        HT100K        # See http://smoothieware.org/temperaturecontrol#toc5
 #temperature_control.hotend.beta             4066             # Or set the beta value
 temperature_control.hotend.set_m_code        104              # M-code to set the temperature for this module
 temperature_control.hotend.set_and_wait_m_code 109            # M-code to set-and-wait for this module
@@ -154,9 +154,9 @@ temperature_control.hotend.designator        T0               # Designator lette
 
 # Second hotend configuration
 temperature_control.hotend2.enable            true           # Whether to activate this ( "hotend" ) module at all.
-temperature_control.hotend2.thermistor_pin    0.25           # Pin for the thermistor to read
-temperature_control.hotend2.heater_pin        1.23           # Pin that controls the heater
-temperature_control.hotend2.thermistor        EPCOS100K      # See http://smoothieware.org/temperaturecontrol#thermistor
+temperature_control.hotend2.thermistor_pin    0.26           # Pin for the thermistor to read
+temperature_control.hotend2.heater_pin        2.6          # Pin that controls the heater
+temperature_control.hotend2.thermistor        HT100K      # See http://smoothieware.org/temperaturecontrol#thermistor
 #temperature_control.hotend2.beta             4066           # or set the beta value
 temperature_control.hotend2.set_m_code        104            # M-code to set the temperature for this module
 temperature_control.hotend2.set_and_wait_m_code 109          # M-code to set-and-wait for this module
@@ -189,7 +189,7 @@ temperature_control.bed.designator           B                # Designator lette
 switch.fan.enable                            true             # Enable this module
 switch.fan.input_on_command                  M106             # Command that will turn this switch on
 switch.fan.input_off_command                 M107             # Command that will turn this switch off
-switch.fan.output_pin                        2.6              # Pin this module controls
+switch.fan.output_pin                        2.4              # Pin this module controls
 switch.fan.output_type                       pwm              # PWM output settable with S parameter in the input_on_comand
 #switch.fan.max_pwm                          255              # Set max pwm for the pin default is 255
 
@@ -218,17 +218,17 @@ alpha_min_endstop                            1.24^            # Pin to read min 
 #alpha_max_endstop                           1.25^            # Pin to read max endstop, uncomment this and comment the above if using max endstops
 alpha_homing_direction                       home_to_min      # Or set to home_to_max and set alpha_max and uncomment the alpha_max_endstop
 alpha_min                                    0                # This gets loaded as the current position after homing when home_to_min is set
-alpha_max                                    200              # This gets loaded as the current position after homing when home_to_max is set
+alpha_max                                    300              # This gets loaded as the current position after homing when home_to_max is set
 beta_min_endstop                             1.26^            # Pin to read min endstop, add a ! to invert if endstop is NO connected to ground
 #beta_max_endstop                            1.27^            # Pin to read max endstop, uncomment this and comment the above if using max endstops
 beta_homing_direction                        home_to_min      # Or set to home_to_max and set alpha_max and uncomment the alpha_max_endstop
 beta_min                                     0                # This gets loaded as the current position after homing when home_to_min is set
-beta_max                                     200              # This gets loaded as the current position after homing when home_to_max is set
+beta_max                                     300              # This gets loaded as the current position after homing when home_to_max is set
 gamma_min_endstop                            1.28^            # Pin to read min endstop, add a ! to invert if endstop is NO connected to ground
 #gamma_max_endstop                           1.29^            # Pin to read max endstop, uncomment this and comment the above if using max endstops
 gamma_homing_direction                       home_to_min      # Or set to home_to_max and set alpha_max and uncomment the alpha_max_endstop
 gamma_min                                    0                # This gets loaded as the current position after homing when home_to_min is set
-gamma_max                                    200              # This gets loaded as the current position after homing when home_to_max is set
+gamma_max                                    300              # This gets loaded as the current position after homing when home_to_max is set
 
 alpha_max_travel                             500              # Max travel in mm for alpha/X axis when homing
 beta_max_travel                              500              # Max travel in mm for beta/Y axis when homing
@@ -269,10 +269,25 @@ gamma_homing_retract_mm                      1                # Distance to retr
 # Delete the above endstop section and uncomment next line and copy and edit Snippets/abc-endstop.config file to enable endstops for ABC axis
 #include abc-endstop.config
 
+##BLTouch Servo Settings
+## BLTouch Servo Settings
+## M280 S3 deploy pin
+## M280 S5.5 zpin test mode
+## M280 S7 Retract pin
+## M280 S8.4 self test
+## M280 S10.6 Alarm release
+
+switch.servo.enable true
+switch.servo.input_on_command M280 S3.0 # M280 S7.5 Would be midway
+switch.servo.input_off_command M280 S7.0 # Same as M280 S0 0% duty cycle, effectivley off
+switch.servo.output_pin 1.23 # Must be a PWM capable pin
+switch.servo.output_type hwpwm # H/W PWM output settable
+switch.servo.pwm_period_ms 20 # Set Period to 20ms (50Hz) - Default is 50Hz
+
 ## Z-probe
 # See http://smoothieware.org/zprobe
-zprobe.enable                                false           # Set to true to enable a zprobe
-zprobe.probe_pin                             1.28!^          # Pin probe is attached to, if NC remove the !
+zprobe.enable                                true            # Set to true to enable a zprobe
+zprobe.probe_pin                             1.28^          # Pin probe is attached to, if NC remove the !
 zprobe.slow_feedrate                         5               # Mm/sec probe feed rate
 #zprobe.debounce_count                       100             # Set if noisy
 zprobe.fast_feedrate                         100             # Move feedrate mm/sec
@@ -281,14 +296,14 @@ zprobe.probe_height                          5               # How much above be
 
 # Levelling strategy
 # Example for 3-point levelling strategy, see wiki documentation for other strategies
-#leveling-strategy.three-point-leveling.enable         true        # a leveling strategy that probes three points to define a plane and keeps the Z parallel to that plane
-#leveling-strategy.three-point-leveling.point1         100.0,0.0   # the first probe point (x,y) optional may be defined with M557
-#leveling-strategy.three-point-leveling.point2         200.0,200.0 # the second probe point (x,y)
-#leveling-strategy.three-point-leveling.point3         0.0,200.0   # the third probe point (x,y)
-#leveling-strategy.three-point-leveling.home_first     true        # home the XY axis before probing
-#leveling-strategy.three-point-leveling.tolerance      0.03        # the probe tolerance in mm, anything less that this will be ignored, default is 0.03mm
-#leveling-strategy.three-point-leveling.probe_offsets  0,0,0       # the probe offsets from nozzle, must be x,y,z, default is no offset
-#leveling-strategy.three-point-leveling.save_plane     false       # set to true to allow the bed plane to be saved with M500 default is false
+leveling-strategy.three-point-leveling.enable         true        # a leveling strategy that probes three points to define a plane and keeps the Z parallel to that plane
+leveling-strategy.three-point-leveling.point1         295.0,0.0   # the first probe point (x,y) optional may be defined with M557
+leveling-strategy.three-point-leveling.point2         295.0,295.0 # the second probe point (x,y)
+leveling-strategy.three-point-leveling.point3         0.0,295.0   # the third probe point (x,y)
+leveling-strategy.three-point-leveling.home_first     true        # home the XY axis before probing
+leveling-strategy.three-point-leveling.tolerance      0.03        # the probe tolerance in mm, anything less that this will be ignored, default is 0.03mm
+leveling-strategy.three-point-leveling.probe_offsets  0,0,0       # the probe offsets from nozzle, must be x,y,z, default is no offset
+leveling-strategy.three-point-leveling.save_plane     false       # set to true to allow the bed plane to be saved with M500 default is false
 
 ## Panel
 # See http://smoothieware.org/panel
